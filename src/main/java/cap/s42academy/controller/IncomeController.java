@@ -22,7 +22,7 @@ public class IncomeController {
         return ResponseEntity.ok(incomeList);
     }
     @PostMapping("/deposit")
-    public ResponseEntity<String> depositIncome(@RequestParam BigDecimal incomeAmount) {
+    public ResponseEntity<String> depositIncome(@RequestParam Integer incomeAmount) {
         incomeService.depositIncome(incomeAmount);
         return ResponseEntity.ok("Income deposited successfully.");
     }

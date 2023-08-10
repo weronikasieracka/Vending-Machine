@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class IncomeService {
     private final IncomeRepository incomeRepository;
-    public void depositIncome(BigDecimal incomeAmount) {
+    public void depositIncome(Integer incomeAmount) {
         Income income = new Income();
         income.setTransactionTime(LocalDateTime.now());
         income.setIncomeAmount(incomeAmount);
