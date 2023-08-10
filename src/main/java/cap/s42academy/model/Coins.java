@@ -23,6 +23,8 @@ public class Coins {
 
     private Integer quantityAvailable;
 
+    public Coins(){}
+
     public Coins(Integer value, int i) {
         this.coinValue = value;
         this.quantityAvailable = i;
