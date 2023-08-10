@@ -31,12 +31,6 @@ public class ProductServiceTest {
 
 
 
-//    @BeforeEach
-//    public void setUp() {
-//        MockitoAnnotations.initMocks(this);
-//        productService = new ProductService(productsRepository);
-//    }
-
     @Test
     public void testAddOrUpdateProduct_ExistingProduct() {
         Products existingProduct = new Products();

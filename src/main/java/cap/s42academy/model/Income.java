@@ -20,6 +20,6 @@ public class Income {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long incomeId;
     private LocalDateTime transactionTime;
-    private BigDecimal incomeAmount;
+    private Integer incomeAmount;
 
 }

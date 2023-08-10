@@ -29,6 +29,7 @@ public class CoinsController {
     public ResponseEntity<String> depositCoin(@RequestParam Integer coinValue) {
         try {
             coinsService.depositCoins(coinValue);
+            incomeService.depositIncome(coinValue);
             return ResponseEntity.ok("Coin deposited successfully.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Invalid coin value.");
