@@ -5,6 +5,7 @@ import cap.s42academy.model.Products;
 import cap.s42academy.model.Transactions;
 import cap.s42academy.repository.CoinsRepository;
 import cap.s42academy.repository.TransactionsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +15,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TransactionsService {
 
-    @Autowired
-    private TransactionsRepository transactionsRepository;
-    @Autowired
-    private CoinsRepository coinsRepository;
-    @Autowired
-    private  ProductService productsService;
-    @Autowired
-    public TransactionsService(TransactionsRepository transactionsRepository) {
-        this.transactionsRepository = transactionsRepository;
-    }
+
+    private final TransactionsRepository transactionsRepository;
+
+    private final CoinsRepository coinsRepository;
+
+    private  final ProductService productsService;
+
 
     @Transactional
     public void createTransactionAndCalculateTotalAmount(List<Integer> coinValues) {
@@ -55,10 +54,14 @@ public class TransactionsService {
         if (!transaction.isCanceled()) {
             transaction.setCanceled(true);
 
-            Coins coin = transaction.getCoin();
-            coin.setQuantityAvailable(coin.getQuantityAvailable() + 1);
+            for (Integer coinValue : transaction.getInsertedCoins()) {
+                Coins insertedCoin = coinsRepository.findByCoinValue(coinValue)
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid coin value."));
+                insertedCoin.setQuantityAvailable(insertedCoin.getQuantityAvailable() - 1);
+                coinsRepository.save(insertedCoin);
+            }
 
-            coinsRepository.save(coin);
+
             transactionsRepository.save(transaction);
         } else {
             throw new IllegalStateException("Transaction is already canceled.");

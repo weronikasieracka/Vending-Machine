@@ -14,9 +14,10 @@ import java.util.List;
 
 @Validated
 @RestController
+@RequestMapping("products")
 @RequiredArgsConstructor
 public class ProductsController {
-    @Autowired
+
     private final ProductService productService;
 
 

@@ -20,11 +20,7 @@ public class CoinsController {
     private final CoinsService coinsService;
     private final IncomeService incomeService;
 
-    private static final List<BigDecimal> VALID_COIN_VALUES = Arrays.asList(
-            new BigDecimal("1"), new BigDecimal("5"),
-            new BigDecimal("10"), new BigDecimal("20"),
-            new BigDecimal("50"), new BigDecimal("100")
-    );
+
     @PostMapping("/deposit")
     public ResponseEntity<String> depositCoin(@RequestParam Integer coinValue) {
         try {

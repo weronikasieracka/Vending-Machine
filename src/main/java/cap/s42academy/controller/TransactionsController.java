@@ -2,6 +2,7 @@ package cap.s42academy.controller;
 
 import cap.s42academy.model.Transactions;
 import cap.s42academy.service.TransactionsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Transactions")
+@RequiredArgsConstructor
 public class TransactionsController {
 
-    @Autowired
-    private TransactionsService transactionsService;
+
+    private final TransactionsService transactionsService;
 
     @PostMapping("/createTransaction")
     public ResponseEntity<String> createTransactionAndCalculateTotalAmount(@RequestBody List<Integer> coinValues) {
